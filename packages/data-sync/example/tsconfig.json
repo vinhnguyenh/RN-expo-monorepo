@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "data-sync-native-kotlin": ["../src/index"],
+      "data-sync-native-kotlin/*": ["../src/*"]
+    }
+  }
+}

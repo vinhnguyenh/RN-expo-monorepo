@@ -1,0 +1,54 @@
+{
+  "name": "RN-expo-monorepo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo lint -- --cache --cache-location .eslintcache",
+    "lint:fix": "turbo lint -- --cache --cache-location .eslintcache --fix",
+    "lint:strict": "eslint . -c eslint.config.strict.mjs",
+    "typecheck": "turbo run typecheck"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1",
+  "devDependencies": {
+    "@react-native/eslint-config": "^0.84.1",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "eslint": "^8.57.1",
+    "eslint-config-expo": "^55.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsonc": "^2.21.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-no-barrel-files": "^1.2.2",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-native": "^5.0.0",
+    "eslint-plugin-react-native-a11y": "^3.5.1",
+    "eslint-plugin-sonarjs": "^0.25.1",
+    "eslint-plugin-testing-library": "^7.16.1",
+    "eslint-plugin-turbo": "^2.8.20",
+    "globals": "^17.4.0",
+    "prettier": "3.8.1",
+    "turbo": "2.8.21",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "typescript": "5.9.3"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

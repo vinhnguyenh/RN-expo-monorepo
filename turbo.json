@@ -1,0 +1,33 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["package.json", ".prettierrc", "tsconfig.json"],
+  "tasks": {
+    "type-check": {
+      "dependsOn": ["^type-check"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"]
+    }, 
+    "lint": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", ".eslintrc.js", "package.json"],
+      "outputs": [".eslintcache"]
+    },
+    "lint:ci": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "src/**/*.ts", 
+        "src/**/*.tsx", 
+        "eslint.config.mjs", 
+        "eslint.config.strict.mjs"
+      ],
+      "outputs": []
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".expo/**", "android/app/build/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

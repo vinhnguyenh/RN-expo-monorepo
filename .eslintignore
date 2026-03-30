@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+Pods/
+
+# Build outputs
+build/
+dist/
+android/build/
+android/app/build/
+*.log
+
+# Native code folders
+ios/
+android/
+
+# Generated files
+.expo/
+.expo-shared/
+
+# Config files (optional - remove if you want to lint these)
+*.config.js
+metro.config.js
+babel.config.js
+jest.config.js
+
+# Test coverage
+coverage/
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+.DS_Store
+*.tsbuildinfo

@@ -1,0 +1,33 @@
+{
+  "name": "@sw/ui-core",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A lightweight, performance-focused UI library for React Native",
+  "main": "index.ts",
+  "types": "index.ts",
+  "license": "ISC",
+  "scripts": {
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --cache --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "react-native",
+    "ui",
+    "components",
+    "theme",
+    "typescript"
+  ],
+  "peerDependencies": {
+    "react": "19.2.0",
+    "react-native": "0.83.2",
+    "react-native-svg": ">=15.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.0",
+    "typescript": "5.9.3"
+  },
+  "packageManager": "pnpm@10.13.1",
+  "engines": {
+    "node": ">=20"
+  }
+}

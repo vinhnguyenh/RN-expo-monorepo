@@ -1,0 +1,28 @@
+{
+  "name": "expo-module-template",
+  "version": "55.0.13",
+  "description": "ExpoModuleTemplate standalone module",
+  "scripts": {},
+  "keywords": [
+    "react-native",
+    "expo",
+    "expo-module-template"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/expo/expo.git",
+    "directory": "packages/expo-module-template"
+  },
+  "bugs": {
+    "url": "https://github.com/expo/expo/issues"
+  },
+  "author": "650 Industries, Inc.",
+  "license": "MIT",
+  "homepage": "https://docs.expo.dev/modules",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  },
+  "peerDependencies": {},
+  "gitHead": "a6f3e8c977474f3f8a3aad658d2b3cc23d5c43b4"
+}
