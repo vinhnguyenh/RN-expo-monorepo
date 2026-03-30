@@ -24,8 +24,6 @@
       "predictiveBackGestureEnabled": false,
       "package": "com.kevinpham1988.tabletapp"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "plugins": ["expo-dev-client"]
   }
 }

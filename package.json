@@ -11,7 +11,10 @@
     "lint": "turbo lint -- --cache --cache-location .eslintcache",
     "lint:fix": "turbo lint -- --cache --cache-location .eslintcache --fix",
     "lint:strict": "eslint . -c eslint.config.strict.mjs",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "android": "turbo run android --filter tablet-app",
+    "ios": "turbo run ios --filter tablet-app",
+    "android:prebuild": "turbo run android:prebuild --filter tablet-app"
   },
   "keywords": [],
   "author": "",

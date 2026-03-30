@@ -25,6 +25,11 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".expo/**", "android/app/build/**"]
     },
+    "android:prebuild": {
+      "dependsOn": ["^build"],
+      "outputs": ["android/**"],
+      "cache": true
+    },
     "dev": {
       "cache": false,
       "persistent": true

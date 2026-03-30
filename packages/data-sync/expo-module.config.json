@@ -1,9 +1,9 @@
 {
-  "platforms": ["apple", "android", "web"],
-  "apple": {
-    "modules": ["DataSyncNativeKotlinModule"]
-  },
+  "platforms": ["android"],
   "android": {
-    "modules": ["expo.modules.datasyncnativekotlin.DataSyncNativeKotlinModule"]
+    "modules": [
+      "expo.modules.datasyncnativekotlin.presentation.modules.DataSyncModule",
+      "expo.modules.datasyncnativekotlin.presentation.modules.NetworkModule"
+    ]
   }
 }
