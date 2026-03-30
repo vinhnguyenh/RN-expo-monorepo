@@ -1,14 +1,30 @@
-# Gradle files
+# NODE (pnpm)
+node_modules/
+.pnpm-debug.log*
+npm-debug.log*
+
+
+# TURBOREPO & METRO BUNDLER
+.turbo/
+turbo*.log
+.metro-health-check*
+.expo-shared/
+
+# APP EXPO (CNG)
+.expo/
+apps/*/android/
+apps/*/ios/
+apps/*/dist/
+
+# TESTING & COVERAGE
+coverage/
+*.lcov
+
+# ANDROID NATIVE & GRADLE
 .gradle/
 build/
-
-# Local configuration file (sdk path, etc)
 local.properties
-
-# Log/OS Files
 *.log
-
-# Android Studio generated files and folders
 captures/
 .externalNativeBuild/
 .cxx/
@@ -16,19 +32,17 @@ captures/
 *.apk
 output-metadata.json
 
-# IntelliJ
+# IDE & KEYSTORE & SECRETS
 *.iml
 .idea/
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
-
-# Keystore files
 *.jks
 *.keystore
-
-# Google Services (e.g. APIs or Firebase)
 google-services.json
-
-# Android Profiling
 *.hprof
+.env
+.env.local
+.DS_Store
+.eslintcache
