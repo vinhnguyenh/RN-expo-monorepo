@@ -1,6 +1,5 @@
 package expo.modules.datasyncnativekotlin.presentation.modules
 
-
 import expo.modules.datasyncnativekotlin.core.network.NetworkMonitor
 import expo.modules.datasyncnativekotlin.di.KoinInitializer
 import expo.modules.kotlin.modules.Module
@@ -27,7 +26,7 @@ class NativeNetworkModule : Module(), KoinComponent {
         OnCreate {
             KoinInitializer.start(appContext.reactContext!!)
         }
-        
+
         Function("isConnected") {
             val isConnected = networkMonitor.isConnected()
             return@Function isConnected

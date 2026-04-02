@@ -21,11 +21,14 @@ export default function App() {
   const [isFeatureEnabled, setIsFeatureEnabled] = useState<boolean>(false);
   const [isScanning, setIsScanning] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [responsePokemon, setResponsePokemon] = useState<string>('');
+  const [pokemonName, setPokemonname] = useState<string>('');
+  const [detailUrl, setDetailUrl] = useState<string>('');
 
-   const callPokemonAPI = async () => {
-      let response = await fetchPokemonsFromAPI(10);
-      setResponsePokemon(JSON.stringify(response));
+  const callPokemonAPI = async () => {
+    let response = await fetchPokemonsFromAPI(10);
+    let fristResponse = response.results[0]
+    setPokemonname(fristResponse.name);
+    setDetailUrl(fristResponse.detailUrl)
   };
 
   useEffect(() => {
@@ -77,7 +80,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>respose Pokemon value: {responsePokemon}</Text>
+      <Text>Pokemon name: {pokemonName}</Text>
+      <Text>Pokemon urlDetail: {detailUrl}</Text>
       <Text>Check is Connect: {checkIsConnected() ? 'True' : 'False'}</Text>
       <Text>The status network: {statusNetwork}</Text>
       <Text>The type netwotk: {typeNetwork}</Text>

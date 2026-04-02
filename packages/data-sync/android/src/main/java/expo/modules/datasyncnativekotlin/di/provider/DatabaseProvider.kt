@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import expo.modules.datasyncnativekotlin.data.local.database.AppDatabase
 
-
 fun provideRoomDatabase(context: Context): AppDatabase {
     return Room.databaseBuilder(
         context,
@@ -16,5 +15,4 @@ fun provideRoomDatabase(context: Context): AppDatabase {
         .build()
 }
 
-// Hàm hỗ trợ lấy DAO
-fun provideOrderDao(database: AppDatabase) = database.userDao()
+fun providePokemonDao(database: AppDatabase) = database.pokemonDao()

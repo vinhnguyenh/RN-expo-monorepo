@@ -1,17 +1,15 @@
 package expo.modules.datasyncnativekotlin.presentation.modules
 
+import expo.modules.datasyncnativekotlin.di.KoinInitializer
 import expo.modules.datasyncnativekotlin.presentation.facades.PokemonFacade
+import expo.modules.kotlin.functions.Coroutine
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class NativeDataSyncModule : Module() {
-    private val moduleScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-
-    private val pokemonFacade = PokemonFacade()
+class NativeDataSyncModule : Module(), KoinComponent {
+    private val pokemonFacade: PokemonFacade by inject()
 
     override fun definition() = ModuleDefinition {
         // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
@@ -19,18 +17,13 @@ class NativeDataSyncModule : Module() {
         // The module will be accessible from `requireNativeModule('DataSync')` in JavaScript.
         Name("NativeDataSyncModule")
 
-        // AsyncFunction hỗ trợ sẵn suspend function của Coroutines
-        // JS sẽ nhận được một Promise
-        AsyncFunction("fetchPokemons") { limit: Int ->
-            // Tạo một Coroutine chạy trên luồng nền (IO)
-            moduleScope.launch {
-                try {
-                    pokemonFacade.fetchPokemonsForJS(limit)
-                } catch (e: Exception) {
-                    // Bắn lỗi về khối catch {} bên JavaScript
-                }
-            }
+        OnCreate {
+            KoinInitializer.start(appContext.reactContext!!)
         }
 
+        // AsyncFunction
+        AsyncFunction("fetchPokemons") Coroutine { limit: Int ->
+            return@Coroutine pokemonFacade.fetchPokemonForJS(limit)
+        }
     }
 }
