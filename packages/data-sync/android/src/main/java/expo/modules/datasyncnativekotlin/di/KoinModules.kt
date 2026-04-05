@@ -43,7 +43,7 @@ val dataModule = module {
     single<PokeApiService> {
         get<Retrofit>().create(PokeApiService::class.java)
     }
-    single<PokemonRepository> { PokemonRepositoryImpl(get(), get()) }
+    single<PokemonRepository> { PokemonRepositoryImpl(get(), get(), get()) }
     factory { GetPokemonListUseCase(get()) }
     single { PokemonFacade(get()) }
 }
