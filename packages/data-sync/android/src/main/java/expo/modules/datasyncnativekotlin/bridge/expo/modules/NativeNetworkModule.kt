@@ -1,7 +1,8 @@
 package expo.modules.datasyncnativekotlin.bridge.expo.modules
 
-import expo.modules.datasyncnativekotlin.core.network.NetworkMonitor
+import expo.modules.datasyncnativekotlin.bridge.expo.mapper.toJsMap
 import expo.modules.datasyncnativekotlin.di.KoinInitializer
+import expo.modules.datasyncnativekotlin.sdk.api.NetworkApi
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import kotlinx.coroutines.CoroutineScope
@@ -13,7 +14,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class NativeNetworkModule : Module(), KoinComponent {
-    private val networkMonitor: NetworkMonitor by inject()
+    private val networkApi: NetworkApi by inject()
     private val moduleJob = SupervisorJob()
 
     private val moduleScope = CoroutineScope(Dispatchers.IO + moduleJob)
@@ -28,31 +29,19 @@ class NativeNetworkModule : Module(), KoinComponent {
         }
 
         Function("isConnected") {
-            val isConnected = networkMonitor.isConnected()
+            val isConnected = networkApi.isConnected()
             return@Function isConnected
         }
 
         AsyncFunction("getNetworkInfo") {
-            val info = networkMonitor.getNetworkInfo()
-
-            mapOf(
-                "isConnected" to info.isConnected,
-                "isValidated" to info.isValidated,
-                "type" to info.type.name
-            )
+            networkApi.getNetworkStatus().toJsMap()
         }
 
         OnStartObserving {
             moduleScope.launch {
                 try {
-                    networkMonitor.observeInfo().collect { info ->
-                        sendEvent(
-                            "networkChanged", mapOf(
-                                "isConnected" to info.isConnected,
-                                "isValidated" to info.isValidated,
-                                "type" to info.type.name
-                            )
-                        )
+                    networkApi.observeStatus().collect { status ->
+                        sendEvent("networkChanged", status.toJsMap())
                     }
                 } catch (e: Exception) {
                     println("Error observing networkChanged: ${e.message}")

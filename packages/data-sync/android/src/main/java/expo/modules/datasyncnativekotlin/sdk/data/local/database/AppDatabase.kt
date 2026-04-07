@@ -2,9 +2,9 @@ package expo.modules.datasyncnativekotlin.sdk.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import expo.modules.datasyncnativekotlin.data.local.SyncQueueEntity
-import expo.modules.datasyncnativekotlin.data.local.dao.PokemonDao
-import expo.modules.datasyncnativekotlin.data.local.entities.PokemonEntity
+import expo.modules.datasyncnativekotlin.sdk.data.local.SyncQueueEntity
+import expo.modules.datasyncnativekotlin.sdk.data.local.dao.PokemonDao
+import expo.modules.datasyncnativekotlin.sdk.data.local.entities.PokemonEntity
 
 @Database(
     entities = [PokemonEntity::class, SyncQueueEntity::class],

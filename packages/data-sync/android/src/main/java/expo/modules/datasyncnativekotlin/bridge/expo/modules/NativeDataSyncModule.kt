@@ -1,5 +1,6 @@
 package expo.modules.datasyncnativekotlin.bridge.expo.modules
 
+import expo.modules.datasyncnativekotlin.bridge.expo.mapper.toJSDto
 import expo.modules.datasyncnativekotlin.di.KoinInitializer
 import expo.modules.datasyncnativekotlin.sdk.api.DataSyncSdk
 import expo.modules.kotlin.functions.Coroutine
@@ -23,7 +24,7 @@ class NativeDataSyncModule : Module(), KoinComponent {
 
         // AsyncFunction
         AsyncFunction("fetchPokemons") Coroutine { limit: Int ->
-            return@Coroutine dataSyncSdk.fetchPokemons(limit)
+            return@Coroutine dataSyncSdk.fetchPokemons(limit).toJSDto()
         }
     }
 }

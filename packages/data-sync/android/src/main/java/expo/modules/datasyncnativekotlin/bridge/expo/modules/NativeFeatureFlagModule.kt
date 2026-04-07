@@ -1,7 +1,7 @@
 package expo.modules.datasyncnativekotlin.bridge.expo.modules
 
 import expo.modules.datasyncnativekotlin.di.KoinInitializer
-import expo.modules.datasyncnativekotlin.sdk.domain.manager.FeatureFlagManager
+import expo.modules.datasyncnativekotlin.sdk.api.FeatureFlagsApi
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import kotlinx.coroutines.CoroutineScope
@@ -13,7 +13,7 @@ import org.koin.core.component.inject
 
 class NativeFeatureFlagModule : Module(), KoinComponent {
 
-    private val featureFlagManager: FeatureFlagManager by inject()
+    private val featureFlagsApi: FeatureFlagsApi by inject()
 
     private val moduleScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
@@ -26,18 +26,18 @@ class NativeFeatureFlagModule : Module(), KoinComponent {
 
         AsyncFunction("syncFlags") {
             moduleScope.launch {
-                featureFlagManager.syncFlagsFromServer()
+                featureFlagsApi.syncFlags()
             }
         }
 
         // Hàm Đọc 1 Cờ
         Function("isFeatureEnabled") { featureKey: String, defaultValue: Boolean? ->
-            return@Function featureFlagManager.isFeatureEnabled(featureKey, defaultValue ?: false)
+            return@Function featureFlagsApi.isFeatureEnabled(featureKey, defaultValue ?: false)
         }
 
         // Hàm Lấy Toàn Bộ Cờ
         Function("getAllFlags") {
-            return@Function featureFlagManager.getAllFlags()
+            return@Function featureFlagsApi.getAllFlags()
         }
     }
 }

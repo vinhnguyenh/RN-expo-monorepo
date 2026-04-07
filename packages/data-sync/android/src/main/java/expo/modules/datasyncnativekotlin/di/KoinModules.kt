@@ -2,20 +2,24 @@ package expo.modules.datasyncnativekotlin.di
 
 import expo.modules.datasyncnativekotlin.core.network.AndroidNetworkMonitor
 import expo.modules.datasyncnativekotlin.core.network.NetworkMonitor
-import expo.modules.datasyncnativekotlin.data.manager.AndroidNfcManagerImpl
-import expo.modules.datasyncnativekotlin.data.manager.FeatureFlagManagerImpl
-import expo.modules.datasyncnativekotlin.data.remote.api.PokemonApiService
-import expo.modules.datasyncnativekotlin.data.repository.PokemonRepositoryImpl
 import expo.modules.datasyncnativekotlin.di.provider.provideOkHttpClient
 import expo.modules.datasyncnativekotlin.di.provider.providePokemonDao
 import expo.modules.datasyncnativekotlin.di.provider.provideRetrofit
 import expo.modules.datasyncnativekotlin.di.provider.provideRoomDatabase
-import expo.modules.datasyncnativekotlin.sdk.domain.manager.AndroidNfcManager
-import expo.modules.datasyncnativekotlin.sdk.domain.manager.FeatureFlagManager
 import expo.modules.datasyncnativekotlin.sdk.domain.repository.PokemonRepository
 import expo.modules.datasyncnativekotlin.sdk.application.usecase.GetPokemonListUseCase
 import expo.modules.datasyncnativekotlin.sdk.api.DataSyncSdk
+import expo.modules.datasyncnativekotlin.sdk.api.DefaultFeatureFlagsApi
 import expo.modules.datasyncnativekotlin.sdk.api.DefaultDataSyncSdk
+import expo.modules.datasyncnativekotlin.sdk.api.DefaultNetworkApi
+import expo.modules.datasyncnativekotlin.sdk.api.FeatureFlagsApi
+import expo.modules.datasyncnativekotlin.sdk.api.NetworkApi
+import expo.modules.datasyncnativekotlin.sdk.api.NfcApi
+import expo.modules.datasyncnativekotlin.sdk.domain.manager.FeatureFlagManager
+import expo.modules.datasyncnativekotlin.sdk.data.remote.api.PokemonApiService
+import expo.modules.datasyncnativekotlin.sdk.data.repository.PokemonRepositoryImpl
+import expo.modules.datasyncnativekotlin.sdk.platform.android.flags.FeatureFlagManagerImpl
+import expo.modules.datasyncnativekotlin.sdk.platform.android.nfc.AndroidNfcManagerImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -23,17 +27,19 @@ import retrofit2.Retrofit
 val coreModule = module {
     // 1. FeatureFlag Module
     single<FeatureFlagManager> { FeatureFlagManagerImpl(androidContext()) }
+    single<FeatureFlagsApi> { DefaultFeatureFlagsApi(get()) }
 
     // 2. Database Module
     single { provideRoomDatabase(androidContext()) }
     single { providePokemonDao(get()) }
     // 3. Network Module
     single<NetworkMonitor> { AndroidNetworkMonitor(androidContext()) }
+    single<NetworkApi> { DefaultNetworkApi(get()) }
     single { provideOkHttpClient() }
     single { provideRetrofit(get()) }
 
     //4. NFC Module
-    single<AndroidNfcManager> { AndroidNfcManagerImpl(androidContext()) }
+    single<NfcApi> { AndroidNfcManagerImpl(androidContext()) }
 
 }
 

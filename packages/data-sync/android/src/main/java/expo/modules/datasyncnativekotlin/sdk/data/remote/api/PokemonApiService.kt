@@ -1,6 +1,6 @@
 package expo.modules.datasyncnativekotlin.sdk.data.remote.api
 
-import expo.modules.datasyncnativekotlin.data.remote.dto.PokemonListResponseDto
+import expo.modules.datasyncnativekotlin.sdk.data.remote.dto.PokemonListResponseDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

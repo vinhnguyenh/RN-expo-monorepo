@@ -1,8 +1,8 @@
 package expo.modules.datasyncnativekotlin.sdk.data.repository
 
-import expo.modules.datasyncnativekotlin.data.local.dao.PokemonDao
-import expo.modules.datasyncnativekotlin.data.mapper.toDomain
-import expo.modules.datasyncnativekotlin.data.remote.api.PokemonApiService
+import expo.modules.datasyncnativekotlin.sdk.data.local.dao.PokemonDao
+import expo.modules.datasyncnativekotlin.sdk.data.mapper.toDomain
+import expo.modules.datasyncnativekotlin.sdk.data.remote.api.PokemonApiService
 import expo.modules.datasyncnativekotlin.sdk.domain.model.PokemonPage
 import expo.modules.datasyncnativekotlin.sdk.domain.repository.PokemonRepository
 

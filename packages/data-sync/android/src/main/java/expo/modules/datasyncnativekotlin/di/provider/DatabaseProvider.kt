@@ -2,7 +2,7 @@ package expo.modules.datasyncnativekotlin.di.provider
 
 import android.content.Context
 import androidx.room.Room
-import expo.modules.datasyncnativekotlin.data.local.database.AppDatabase
+import expo.modules.datasyncnativekotlin.sdk.data.local.database.AppDatabase
 
 fun provideRoomDatabase(context: Context): AppDatabase {
     return Room.databaseBuilder(

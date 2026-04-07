@@ -1,0 +1,31 @@
+package expo.modules.datasyncnativekotlin.sdk.api
+
+import expo.modules.datasyncnativekotlin.core.network.NetworkInfo
+import expo.modules.datasyncnativekotlin.core.network.NetworkMonitor
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
+class DefaultNetworkApi(
+    private val networkMonitor: NetworkMonitor
+) : NetworkApi {
+
+    override fun isConnected(): Boolean {
+        return networkMonitor.isConnected()
+    }
+
+    override fun getNetworkStatus(): NetworkStatus {
+        return networkMonitor.getNetworkInfo().toApiModel()
+    }
+
+    override fun observeStatus(): Flow<NetworkStatus> {
+        return networkMonitor.observeInfo().map { it.toApiModel() }
+    }
+}
+
+private fun NetworkInfo.toApiModel(): NetworkStatus {
+    return NetworkStatus(
+        isConnected = isConnected,
+        isValidated = isValidated,
+        type = type.name
+    )
+}

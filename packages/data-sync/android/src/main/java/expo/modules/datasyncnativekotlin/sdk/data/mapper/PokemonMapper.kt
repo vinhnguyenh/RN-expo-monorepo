@@ -1,8 +1,8 @@
 package expo.modules.datasyncnativekotlin.sdk.data.mapper
 
-import expo.modules.datasyncnativekotlin.data.local.entities.PokemonEntity
-import expo.modules.datasyncnativekotlin.data.remote.dto.PokemonDto
-import expo.modules.datasyncnativekotlin.data.remote.dto.PokemonListResponseDto
+import expo.modules.datasyncnativekotlin.sdk.data.local.entities.PokemonEntity
+import expo.modules.datasyncnativekotlin.sdk.data.remote.dto.PokemonDto
+import expo.modules.datasyncnativekotlin.sdk.data.remote.dto.PokemonListResponseDto
 import expo.modules.datasyncnativekotlin.sdk.domain.model.Pokemon
 import expo.modules.datasyncnativekotlin.sdk.domain.model.PokemonPage
 
