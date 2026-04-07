@@ -1,8 +1,8 @@
 package expo.modules.datasyncnativekotlin.sdk.api
 
-import expo.modules.datasyncnativekotlin.domain.usecase.GetPokemonListUseCase
-import expo.modules.datasyncnativekotlin.presentation.model.PokemonJSDto
-import expo.modules.datasyncnativekotlin.presentation.model.PokemonPageJSDto
+import expo.modules.datasyncnativekotlin.sdk.application.usecase.GetPokemonListUseCase
+import expo.modules.datasyncnativekotlin.bridge.expo.dto.PokemonJSDto
+import expo.modules.datasyncnativekotlin.bridge.expo.dto.PokemonPageJSDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

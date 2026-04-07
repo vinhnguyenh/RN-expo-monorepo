@@ -10,10 +10,10 @@ import expo.modules.datasyncnativekotlin.di.provider.provideOkHttpClient
 import expo.modules.datasyncnativekotlin.di.provider.providePokemonDao
 import expo.modules.datasyncnativekotlin.di.provider.provideRetrofit
 import expo.modules.datasyncnativekotlin.di.provider.provideRoomDatabase
-import expo.modules.datasyncnativekotlin.domain.manager.AndroidNfcManager
-import expo.modules.datasyncnativekotlin.domain.manager.FeatureFlagManager
-import expo.modules.datasyncnativekotlin.domain.repository.PokemonRepository
-import expo.modules.datasyncnativekotlin.domain.usecase.GetPokemonListUseCase
+import expo.modules.datasyncnativekotlin.sdk.domain.manager.AndroidNfcManager
+import expo.modules.datasyncnativekotlin.sdk.domain.manager.FeatureFlagManager
+import expo.modules.datasyncnativekotlin.sdk.domain.repository.PokemonRepository
+import expo.modules.datasyncnativekotlin.sdk.application.usecase.GetPokemonListUseCase
 import expo.modules.datasyncnativekotlin.sdk.api.DataSyncSdk
 import expo.modules.datasyncnativekotlin.sdk.api.DefaultDataSyncSdk
 import org.koin.android.ext.koin.androidContext
