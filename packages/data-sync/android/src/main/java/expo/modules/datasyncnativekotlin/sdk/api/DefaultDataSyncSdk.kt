@@ -3,16 +3,52 @@ package expo.modules.datasyncnativekotlin.sdk.api
 import expo.modules.datasyncnativekotlin.sdk.application.facade.PokemonCatalogFacade
 import expo.modules.datasyncnativekotlin.sdk.domain.model.PokemonPage
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class DefaultDataSyncSdk(
-    private val pokemonCatalogFacade: PokemonCatalogFacade
+    private val pokemonCatalogFacade: PokemonCatalogFacade,
+    private val featureFlagsApi: FeatureFlagsApi,
+    private val networkApi: NetworkApi,
+    private val nfcApi: NfcApi
 ) : DataSyncSdk {
 
-    override suspend fun fetchPokemons(limit: Int): SdkPokemonPage {
+    override suspend fun fetchPokemons(limit: Int, offset: Int): SdkPokemonPage {
         return withContext(Dispatchers.IO) {
-            pokemonCatalogFacade.fetchPokemons(limit = limit).toSdkModel()
+            pokemonCatalogFacade.fetchPokemons(limit = limit, offset = offset).toSdkModel()
         }
+    }
+
+    override fun isFeatureEnabled(featureKey: String, defaultValue: Boolean): Boolean {
+        return featureFlagsApi.isFeatureEnabled(featureKey, defaultValue)
+    }
+
+    override fun getAllFlags(): Map<String, Boolean> {
+        return featureFlagsApi.getAllFlags()
+    }
+
+    override suspend fun syncFlags() {
+        featureFlagsApi.syncFlags()
+    }
+
+    override fun isConnected(): Boolean {
+        return networkApi.isConnected()
+    }
+
+    override fun getNetworkStatus(): NetworkStatus {
+        return networkApi.getNetworkStatus()
+    }
+
+    override fun observeNetworkStatus(): Flow<NetworkStatus> {
+        return networkApi.observeStatus()
+    }
+
+    override fun startNfcSession(onTagRead: (String) -> Unit): Boolean {
+        return nfcApi.startSession(onTagRead)
+    }
+
+    override fun stopNfcSession() {
+        nfcApi.stopSession()
     }
 }
 

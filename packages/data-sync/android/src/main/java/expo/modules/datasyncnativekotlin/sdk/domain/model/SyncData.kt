@@ -1,1 +1,0 @@
-package expo.modules.datasyncnativekotlin.sdk.domain.model
