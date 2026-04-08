@@ -5,5 +5,5 @@ import expo.modules.kotlin.records.Record
 
 data class PokemonJSDto(
     @Field val name: String,
-    @Field val detailUrl: String
+    @Field val detailUrl: String,
 ) : Record

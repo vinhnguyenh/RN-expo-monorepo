@@ -5,28 +5,28 @@ import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
 class NativeNfcModule : Module() {
-    override fun definition() = ModuleDefinition {
-        Name("NativeNfcModule")
+    override fun definition() =
+        ModuleDefinition {
+            Name("NativeNfcModule")
 
-        Events("onNfcTagScanned")
+            Events("onNfcTagScanned")
 
-        AsyncFunction("startNfcReader") {
-            dataSyncSdk().startNfcSession { tagData ->
-                sendEvent(
-                    "onNfcTagScanned",
-                    mapOf(
-                        "tagId" to tagData,
-                        "timestamp" to System.currentTimeMillis()
+            AsyncFunction("startNfcReader") {
+                dataSyncSdk().startNfcSession { tagData ->
+                    sendEvent(
+                        "onNfcTagScanned",
+                        mapOf(
+                            "tagId" to tagData,
+                            "timestamp" to System.currentTimeMillis(),
+                        ),
                     )
-                )
+                }
+            }
+
+            Function("stopNfcReader") {
+                dataSyncSdk().stopNfcSession()
             }
         }
 
-        Function("stopNfcReader") {
-            dataSyncSdk().stopNfcSession()
-        }
-    }
-
-    private fun dataSyncSdk() =
-        DataSyncSdkFactory.create(requireNotNull(appContext.reactContext))
+    private fun dataSyncSdk() = DataSyncSdkFactory.create(requireNotNull(appContext.reactContext))
 }

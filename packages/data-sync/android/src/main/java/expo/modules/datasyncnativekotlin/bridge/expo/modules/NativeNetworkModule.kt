@@ -14,35 +14,35 @@ class NativeNetworkModule : Module() {
     private val moduleJob = SupervisorJob()
     private val moduleScope = CoroutineScope(Dispatchers.IO + moduleJob)
 
-    override fun definition() = ModuleDefinition {
-        Name("NativeNetworkModule")
+    override fun definition() =
+        ModuleDefinition {
+            Name("NativeNetworkModule")
 
-        Events("networkChanged")
+            Events("networkChanged")
 
-        Function("isConnected") {
-            dataSyncSdk().isConnected()
-        }
+            Function("isConnected") {
+                dataSyncSdk().isConnected()
+            }
 
-        AsyncFunction("getNetworkInfo") {
-            dataSyncSdk().getNetworkStatus().toJsMap()
-        }
+            AsyncFunction("getNetworkInfo") {
+                dataSyncSdk().getNetworkStatus().toJsMap()
+            }
 
-        OnStartObserving {
-            moduleScope.launch {
-                try {
-                    dataSyncSdk().observeNetworkStatus().collect { status ->
-                        sendEvent("networkChanged", status.toJsMap())
+            OnStartObserving {
+                moduleScope.launch {
+                    try {
+                        dataSyncSdk().observeNetworkStatus().collect { status ->
+                            sendEvent("networkChanged", status.toJsMap())
+                        }
+                    } catch (_: Exception) {
                     }
-                } catch (_: Exception) {
                 }
+            }
+
+            OnDestroy {
+                moduleScope.cancel("Module destroyed, cancelling all sync tasks.")
             }
         }
 
-        OnDestroy {
-            moduleScope.cancel("Module destroyed, cancelling all sync tasks.")
-        }
-    }
-
-    private fun dataSyncSdk() =
-        DataSyncSdkFactory.create(requireNotNull(appContext.reactContext))
+    private fun dataSyncSdk() = DataSyncSdkFactory.create(requireNotNull(appContext.reactContext))
 }

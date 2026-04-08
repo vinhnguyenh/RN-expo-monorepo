@@ -6,26 +6,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DefaultNetworkApi(
-    private val networkMonitor: NetworkMonitor
+    private val networkMonitor: NetworkMonitor,
 ) : NetworkApi {
+    override fun isConnected(): Boolean = networkMonitor.isConnected()
 
-    override fun isConnected(): Boolean {
-        return networkMonitor.isConnected()
-    }
+    override fun getNetworkStatus(): NetworkStatus = networkMonitor.getNetworkInfo().toApiModel()
 
-    override fun getNetworkStatus(): NetworkStatus {
-        return networkMonitor.getNetworkInfo().toApiModel()
-    }
-
-    override fun observeStatus(): Flow<NetworkStatus> {
-        return networkMonitor.observeInfo().map { it.toApiModel() }
-    }
+    override fun observeStatus(): Flow<NetworkStatus> = networkMonitor.observeInfo().map { it.toApiModel() }
 }
 
-private fun NetworkInfo.toApiModel(): NetworkStatus {
-    return NetworkStatus(
+private fun NetworkInfo.toApiModel(): NetworkStatus =
+    NetworkStatus(
         isConnected = isConnected,
         isValidated = isValidated,
-        type = type.name
+        type = type.name,
     )
-}

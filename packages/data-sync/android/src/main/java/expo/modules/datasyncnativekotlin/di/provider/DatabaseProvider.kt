@@ -7,7 +7,7 @@ import expo.modules.datasyncnativekotlin.sdk.data.local.database.AppDatabase
 
 fun provideRoomDatabase(
     context: Context,
-    config: DataSyncConfig
+    config: DataSyncConfig,
 ): AppDatabase =
     Room
         .databaseBuilder(

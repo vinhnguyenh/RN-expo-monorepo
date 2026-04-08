@@ -4,9 +4,12 @@ import expo.modules.datasyncnativekotlin.sdk.application.usecase.GetPokemonListU
 import expo.modules.datasyncnativekotlin.sdk.domain.model.PokemonPage
 
 class PokemonCatalogFacade(
-    private val getPokemonListUseCase: GetPokemonListUseCase
+    private val getPokemonListUseCase: GetPokemonListUseCase,
 ) {
-    suspend fun fetchPokemons(limit: Int, offset: Int = 0): PokemonPage {
+    suspend fun fetchPokemons(
+        limit: Int,
+        offset: Int = 0,
+    ): PokemonPage {
         val normalizedLimit = limit.coerceAtLeast(1)
         val normalizedOffset = offset.coerceAtLeast(0)
 
@@ -14,7 +17,7 @@ class PokemonCatalogFacade(
             throw PokemonCatalogException(
                 limit = normalizedLimit,
                 offset = normalizedOffset,
-                cause = error
+                cause = error,
             )
         }
     }
@@ -23,8 +26,8 @@ class PokemonCatalogFacade(
 class PokemonCatalogException(
     limit: Int,
     offset: Int,
-    cause: Throwable
+    cause: Throwable,
 ) : RuntimeException(
-    "Failed to fetch pokemons with limit=$limit and offset=$offset",
-    cause
-)
+        "Failed to fetch pokemons with limit=$limit and offset=$offset",
+        cause,
+    )

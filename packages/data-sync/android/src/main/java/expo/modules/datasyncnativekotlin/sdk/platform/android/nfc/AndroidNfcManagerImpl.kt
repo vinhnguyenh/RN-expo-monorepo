@@ -12,9 +12,9 @@ import kotlinx.coroutines.launch
 
 class AndroidNfcManagerImpl(
     context: Context,
-    private val currentActivityProvider: CurrentActivityProvider
-) : NfcApi, NfcAdapter.ReaderCallback {
-
+    private val currentActivityProvider: CurrentActivityProvider,
+) : NfcApi,
+    NfcAdapter.ReaderCallback {
     private val nfcAdapter: NfcAdapter? = NfcAdapter.getDefaultAdapter(context)
     private var onTagReadCallback: ((String) -> Unit)? = null
 
@@ -25,29 +25,26 @@ class AndroidNfcManagerImpl(
             throw NfcNotSupportedException()
         }
 
-        val activity = currentActivityProvider.currentActivity()
-            ?: throw ActivityNotFoundException()
+        val activity =
+            currentActivityProvider.currentActivity()
+                ?: throw ActivityNotFoundException()
 
         this.onTagReadCallback = onTagRead
 
-        // Configure flags to read various card types (Magnetic cards, chip cards, vehicle cards, etc.)
-        val flags = NfcAdapter.FLAG_READER_NFC_A or
+        val flags =
+            NfcAdapter.FLAG_READER_NFC_A or
                 NfcAdapter.FLAG_READER_NFC_B or
                 NfcAdapter.FLAG_READER_NFC_F or
                 NfcAdapter.FLAG_READER_NFC_V
 
-        // Enable Reader Mode: Capture all swipes without displaying Android pop-ups.
-        try {
-            nfcAdapter.enableReaderMode(activity, this, flags, null)
-            return true
-        } catch (e: Exception) {
-            return false
-        }
+        nfcAdapter.enableReaderMode(activity, this, flags, null)
+        return true
     }
 
     override fun stopSession() {
-        val activity = currentActivityProvider.currentActivity()
-            ?: throw ActivityNotFoundException()
+        val activity =
+            currentActivityProvider.currentActivity()
+                ?: throw ActivityNotFoundException()
 
         nfcAdapter?.disableReaderMode(activity)
         this.onTagReadCallback = null
@@ -56,24 +53,10 @@ class AndroidNfcManagerImpl(
     override fun onTagDiscovered(tag: Tag?) {
         if (tag == null) return
 
-        tag.let {
-            // Ví dụ: Lấy mã ID vật lý của thẻ (UID)
-            val tagIdBytes = it.id
-            val tagIdHex = tagIdBytes.joinToString("") { byte -> "%02X".format(byte) }
+        val tagIdHex = tag.id.joinToString("") { byte -> "%02X".format(byte) }
 
-            // Xử lý đọc NDEF (dữ liệu Text/URL lưu trong thẻ) nếu cần
-            /*
-                val ndef = Ndef.get(it)
-                ndef?.connect()
-                val message = ndef?.cachedNdefMessage
-                // ... Parse message ở đây
-                ndef?.close()
-                */
-
-            // Đẩy data ra Main Thread để bắn lên giao diện an toàn
-            mainScope.launch {
-                onTagReadCallback?.invoke(tagIdHex)
-            }
+        mainScope.launch {
+            onTagReadCallback?.invoke(tagIdHex)
         }
     }
 }

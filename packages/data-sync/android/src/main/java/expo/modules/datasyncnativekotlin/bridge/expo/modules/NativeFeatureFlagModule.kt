@@ -6,22 +6,22 @@ import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
 class NativeFeatureFlagModule : Module() {
-    override fun definition() = ModuleDefinition {
-        Name("NativeFeatureFlagModule")
+    override fun definition() =
+        ModuleDefinition {
+            Name("NativeFeatureFlagModule")
 
-        AsyncFunction("syncFlags") Coroutine {
-            dataSyncSdk().syncFlags()
+            AsyncFunction("syncFlags") Coroutine {
+                dataSyncSdk().syncFlags()
+            }
+
+            Function("isFeatureEnabled") { featureKey: String, defaultValue: Boolean? ->
+                dataSyncSdk().isFeatureEnabled(featureKey, defaultValue ?: false)
+            }
+
+            Function("getAllFlags") {
+                dataSyncSdk().getAllFlags()
+            }
         }
 
-        Function("isFeatureEnabled") { featureKey: String, defaultValue: Boolean? ->
-            dataSyncSdk().isFeatureEnabled(featureKey, defaultValue ?: false)
-        }
-
-        Function("getAllFlags") {
-            dataSyncSdk().getAllFlags()
-        }
-    }
-
-    private fun dataSyncSdk() =
-        DataSyncSdkFactory.create(requireNotNull(appContext.reactContext))
+    private fun dataSyncSdk() = DataSyncSdkFactory.create(requireNotNull(appContext.reactContext))
 }

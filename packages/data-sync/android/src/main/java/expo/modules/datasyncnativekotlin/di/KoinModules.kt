@@ -34,7 +34,7 @@ fun coreModule(config: DataSyncConfig) =
     module {
         single<DataSyncConfig> { config }
 
-        single<FeatureFlagManager> { FeatureFlagManagerImpl(androidContext()) }
+        single<FeatureFlagManager> { FeatureFlagManagerImpl() }
         single<FeatureFlagsApi> { DefaultFeatureFlagsApi(get()) }
 
         single { provideRoomDatabase(androidContext(), get()) }

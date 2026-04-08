@@ -10,53 +10,44 @@ class DefaultDataSyncSdk(
     private val pokemonCatalogFacade: PokemonCatalogFacade,
     private val featureFlagsApi: FeatureFlagsApi,
     private val networkApi: NetworkApi,
-    private val nfcApi: NfcApi
+    private val nfcApi: NfcApi,
 ) : DataSyncSdk {
-
-    override suspend fun fetchPokemons(limit: Int, offset: Int): SdkPokemonPage {
-        return withContext(Dispatchers.IO) {
+    override suspend fun fetchPokemons(
+        limit: Int,
+        offset: Int,
+    ): SdkPokemonPage =
+        withContext(Dispatchers.IO) {
             pokemonCatalogFacade.fetchPokemons(limit = limit, offset = offset).toSdkModel()
         }
-    }
 
-    override fun isFeatureEnabled(featureKey: String, defaultValue: Boolean): Boolean {
-        return featureFlagsApi.isFeatureEnabled(featureKey, defaultValue)
-    }
+    override fun isFeatureEnabled(
+        featureKey: String,
+        defaultValue: Boolean,
+    ): Boolean = featureFlagsApi.isFeatureEnabled(featureKey, defaultValue)
 
-    override fun getAllFlags(): Map<String, Boolean> {
-        return featureFlagsApi.getAllFlags()
-    }
+    override fun getAllFlags(): Map<String, Boolean> = featureFlagsApi.getAllFlags()
 
     override suspend fun syncFlags() {
         featureFlagsApi.syncFlags()
     }
 
-    override fun isConnected(): Boolean {
-        return networkApi.isConnected()
-    }
+    override fun isConnected(): Boolean = networkApi.isConnected()
 
-    override fun getNetworkStatus(): NetworkStatus {
-        return networkApi.getNetworkStatus()
-    }
+    override fun getNetworkStatus(): NetworkStatus = networkApi.getNetworkStatus()
 
-    override fun observeNetworkStatus(): Flow<NetworkStatus> {
-        return networkApi.observeStatus()
-    }
+    override fun observeNetworkStatus(): Flow<NetworkStatus> = networkApi.observeStatus()
 
-    override fun startNfcSession(onTagRead: (String) -> Unit): Boolean {
-        return nfcApi.startSession(onTagRead)
-    }
+    override fun startNfcSession(onTagRead: (String) -> Unit): Boolean = nfcApi.startSession(onTagRead)
 
     override fun stopNfcSession() {
         nfcApi.stopSession()
     }
 }
 
-private fun PokemonPage.toSdkModel(): SdkPokemonPage {
-    return SdkPokemonPage(
+private fun PokemonPage.toSdkModel(): SdkPokemonPage =
+    SdkPokemonPage(
         count = count,
         next = next,
         previous = previous,
-        results = results.map { SdkPokemon(it.name, it.detailUrl) }
+        results = results.map { SdkPokemon(it.name, it.detailUrl) },
     )
-}

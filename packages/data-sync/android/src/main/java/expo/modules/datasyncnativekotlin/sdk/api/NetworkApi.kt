@@ -4,6 +4,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface NetworkApi {
     fun isConnected(): Boolean
+
     fun getNetworkStatus(): NetworkStatus
+
     fun observeStatus(): Flow<NetworkStatus>
 }

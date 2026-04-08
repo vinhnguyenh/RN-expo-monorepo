@@ -7,14 +7,14 @@ import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
 class NativeDataSyncModule : Module() {
-    override fun definition() = ModuleDefinition {
-        Name("NativeDataSyncModule")
+    override fun definition() =
+        ModuleDefinition {
+            Name("NativeDataSyncModule")
 
-        AsyncFunction("fetchPokemons") Coroutine { limit: Int ->
-            dataSyncSdk().fetchPokemons(limit).toJSDto()
+            AsyncFunction("fetchPokemons") Coroutine { limit: Int ->
+                dataSyncSdk().fetchPokemons(limit).toJSDto()
+            }
         }
-    }
 
-    private fun dataSyncSdk() =
-        DataSyncSdkFactory.create(requireNotNull(appContext.reactContext))
+    private fun dataSyncSdk() = DataSyncSdkFactory.create(requireNotNull(appContext.reactContext))
 }
